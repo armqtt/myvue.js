@@ -1,0 +1,50 @@
+<!--
+
+06-The-Need-For-Computed-Properties
+
+-->
+<html>
+	<head>
+	</head>
+	<body>
+		<div id="root">
+			<h1 v-text="new Date()"></h1>
+			<h1>{{ reversedMessage }}</h1>
+			<br />
+			<h1>All Task</h1>
+			<ul>
+				<li v-for="task in tasks">{{ task.description }}</li>
+			</ul>
+			<h1>Incomplete Task</h1>
+			<ul>
+				<li v-for="task in incompleteTask">{{ task.description }}</li>
+			</ul>
+		</div>
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+		
+		<script>
+			var app = new Vue({
+				el: '#root',
+				data: {
+					message: "Hello World",
+					tasks :[
+						{description: "Go to Store", completed: true},
+						{description: "Meet Friend", completed: true},
+						{description: "Buy Food", completed: false},
+						{description: "Read Book", completed: true},
+						{description: "Go to Shower", completed: false}
+					]
+				},
+
+				computed:{
+					reversedMessage() {
+						return this.message.split('').reverse().join('');
+					},
+					incompleteTask() {
+						return this.tasks.filter( task => !task.completed);
+					}
+				}
+		});
+		</script>
+	</body>
+</html>
