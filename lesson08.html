@@ -1,0 +1,40 @@
+<!--
+
+
+-->
+<html>
+	<head>
+	</head>
+	<body>
+		<div id="root">
+			<task-list></task-list>
+		</div>
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+		
+		<script>
+			Vue.component('task-list',
+				{
+					template: `
+						<ul>
+							<li v-for="task in tasks">{{ task.description }}</li>
+						</ul>
+						`,
+					data() {
+						return {
+							tasks:[
+								{description: "Go to Store", completed: true},
+								{description: "Go to Bank", completed: false},
+								{description: "Go to work", completed: true},
+								{description: "Go to home", completed: false},
+								{description: "Go to sleep", completed: true},
+							]
+						};
+					}
+				});
+			var app = new Vue({
+				el: '#root'
+
+		});
+		</script>
+	</body>
+</html>

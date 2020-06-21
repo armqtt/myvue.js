@@ -1,0 +1,42 @@
+<!--
+
+
+-->
+<html>
+	<head>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.0/css/bulma.min.css" />
+	</head>
+	<body>
+		<div id="root">
+			<message title="Hello World" body="My Hello World Content"></message>
+			<message title="Hello World2" body="My Hello World Content2"></message>
+			<message title="Hello World3" body="My Hello World Content"></message>
+		</div>
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+		
+		<script>
+			Vue.component('message',
+				{
+					props: ["title", "body"],
+					template: `
+							<article class="message" v-show="isVisible">
+							  	<div class="message-header">
+									<p>{{ title }}</p>
+									<button class="delete" @click="isVisible = false" aria-label="delete"></button>
+								</div>
+								<div class="message-body">
+									{{ body }}
+								</div>
+							</article>
+						`,
+					data() {
+						return {isVisible: true};
+					}
+				});
+			var app = new Vue({
+				el: '#root'
+
+		});
+		</script>
+	</body>
+</html>

@@ -1,0 +1,80 @@
+<!--
+
+	:selected = v-bind:selected
+
+-->
+<html>
+	<head>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.0/css/bulma.min.css" />
+	</head>
+	<body>
+		<div id="root">
+			<tabs>
+				<tab name="About Me" :selected="true">This is about me</tab>
+				<tab name="About My pet">This is about my pet</tab>
+				<tab name="Abount My job">This is about my job</tab>
+			</tabs>
+		</div>
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+		
+		<script>
+			Vue.component('tabs',
+				{
+					template: `
+<div>
+  <div class="tabs">
+    <ul>
+      <li v-for="tab in tabs" :class="{ 'is-active': tab.isActive }"><a :href="tab.href" @click="selectTab(tab)">{{ tab.name }}</a></li>
+    </ul>
+  </div>
+  <div class="tabs-details"><slot></slot></div>
+</div>
+					`,
+					data(){
+						return { tabs: [] }
+					},
+					created(){
+						this.tabs = this.$children;
+					},
+					methods: {
+						selectTab(selectedTab){
+							this.tabs.forEach(tab => {
+								tab.isActive = (tab.name == selectedTab.name);
+							});
+						}
+					}
+				});
+			Vue.component('tab',
+				{
+					props: { 
+						name: { required: true },
+						selected: { default: false }
+					},
+					template: `
+<div v-show="isActive"><slot></slot></div>
+					`,
+					data(){
+						return {
+							isActive: false
+						};
+					},
+					mounted(){
+						this.isActive = this.selected;
+					},
+					computed:{
+						href(){
+							return '#' + this.name.toLowerCase().replace(/ /g, '-');
+						}
+					}
+				});
+			var app = new Vue({
+				el: '#root',
+				data: {
+					showModal: false,
+					showModal02: false
+				}
+
+		});
+		</script>
+	</body>
+</html>
